@@ -2,21 +2,42 @@
 
 ## Project Context
 
-This repository (`tech-specs`) is the **specifications and documentation hub** for the FISIANOS POC project. It does NOT contain application source code. The actual implementation lives in two sibling repositories:
+This repository (`tech-specs`) is the **root workspace** for the FISIANOS POC project. It contains specifications, documentation, and architecture diagrams. The two application repositories (`tech-frontend` and `tech-backend`) are **cloned inside this directory** as independent Git repositories. They are listed in `.gitignore` so `tech-specs` does NOT track their contents — each repo has its own `.git` history and remote.
 
-- **`tech-frontend`**: React + TypeScript + Vite application
-- **`tech-backend`**: Spring Boot WebFlux (Java) reactive API
+> **IMPORTANT**: `tech-frontend/` and `tech-backend/` are **independent Git repos**, NOT subdirectories of `tech-specs`. They each push to their own GitHub remote. Do NOT commit frontend/backend code changes via the `tech-specs` git — use each project's own git context.
 
-## Repository Structure
+## Workspace Structure (Local Filesystem)
 
 ```
-tech-specs/
-├── AGENTS.md              # This file — AI assistant rules
-├── architecture.md        # Mermaid.js architecture diagram
-├── README.md              # Repository README
-└── specs/
-    └── overview.md        # High-level project overview
+tech-specs/                          ← THIS repo (GitHub: FISIANOS-POC/tech-specs)
+├── .gitignore                       # Ignores tech-frontend/ and tech-backend/
+├── AGENTS.md                        # This file — AI assistant rules
+├── architecture.md                  # Mermaid.js architecture diagram
+├── README.md                        # Repository README
+├── specs/
+│   └── overview.md                  # High-level project overview
+│
+├── tech-frontend/                   ← INDEPENDENT repo (GitHub: FISIANOS-POC/tech-frontend)
+│   ├── .git/                        # Its own Git history
+│   ├── package.json
+│   ├── vite.config.ts
+│   ├── src/
+│   └── ...
+│
+└── tech-backend/                    ← INDEPENDENT repo (GitHub: FISIANOS-POC/tech-backend)
+    ├── .git/                        # Its own Git history
+    ├── pom.xml
+    ├── src/
+    └── ...
 ```
+
+## Git Remotes
+
+| Directory          | GitHub Repository                              | Branch  |
+| ------------------ | ---------------------------------------------- | ------- |
+| `tech-specs/`      | `github.com/FISIANOS-POC/tech-specs`           | `main`  |
+| `tech-frontend/`   | `github.com/FISIANOS-POC/tech-frontend`        | `main`  |
+| `tech-backend/`    | `github.com/FISIANOS-POC/tech-backend`         | `main`  |
 
 ## Rules for AI Assistants
 

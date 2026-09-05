@@ -4,13 +4,28 @@
 
 **FISIANOS** is a proof-of-concept (POC) full-stack web application designed to demonstrate a modern, reactive architecture connecting a **React** frontend with a **Spring Boot WebFlux** backend.
 
-The project is structured as a multi-repository monorepo consisting of three independent codebases:
+## Workspace Layout
 
-| Repository        | Purpose                                                        |
-| ----------------- | -------------------------------------------------------------- |
-| `tech-specs`      | Specifications, architecture diagrams, and AI agent guidelines |
-| `tech-frontend`   | React + TypeScript + Vite client application                   |
-| `tech-backend`    | Spring Boot WebFlux (Java) reactive REST API                   |
+The project uses three **independent GitHub repositories** that coexist in a single local workspace. The `tech-specs` repo acts as the root directory, and `tech-frontend` / `tech-backend` are cloned inside it. A `.gitignore` in `tech-specs` ensures the nested repos are not tracked by the specs repo — each project maintains its own Git history and remote.
+
+```
+tech-specs/                          ← Root workspace + specs repo
+├── .gitignore                       # Ignores tech-frontend/ and tech-backend/
+├── AGENTS.md                        # AI assistant guidelines
+├── architecture.md                  # Mermaid.js architecture diagrams
+├── specs/
+│   └── overview.md                  # This file
+├── tech-frontend/                   ← Independent repo (own .git)
+│   ├── package.json, vite.config.ts, src/, ...
+└── tech-backend/                    ← Independent repo (own .git)
+    ├── pom.xml, src/, ...
+```
+
+| Repository        | GitHub Remote                                 | Purpose                                                        |
+| ----------------- | --------------------------------------------- | -------------------------------------------------------------- |
+| `tech-specs`      | `FISIANOS-POC/tech-specs`                     | Specifications, architecture diagrams, and AI agent guidelines |
+| `tech-frontend`   | `FISIANOS-POC/tech-frontend`                  | React + TypeScript + Vite client application                   |
+| `tech-backend`    | `FISIANOS-POC/tech-backend`                   | Spring Boot WebFlux (Java) reactive REST API                   |
 
 ## High-Level Architecture
 
@@ -32,14 +47,14 @@ The project is structured as a multi-repository monorepo consisting of three ind
 
 ## Tech Stack
 
-### Frontend (`tech-frontend`)
+### Frontend (`tech-frontend/`)
 - **Framework**: React 18+
 - **Language**: TypeScript
 - **Build Tool**: Vite
 - **Package Manager**: Yarn
 - **Styling**: CSS Modules / Vanilla CSS
 
-### Backend (`tech-backend`)
+### Backend (`tech-backend/`)
 - **Framework**: Spring Boot 3.x
 - **Reactive Stack**: Spring WebFlux (Reactor Netty)
 - **Language**: Java 17+
@@ -55,7 +70,17 @@ The project is structured as a multi-repository monorepo consisting of three ind
 
 ## Getting Started
 
-Refer to each repository's own README for setup instructions:
+> **Note**: Since both projects live inside `tech-specs/`, navigate to each subdirectory to work with its code and git.
 
-- **Frontend**: `tech-frontend/README.md`
-- **Backend**: `tech-backend/README.md`
+### Frontend
+```bash
+cd tech-frontend
+yarn install
+yarn dev          # → http://localhost:5173
+```
+
+### Backend
+```bash
+cd tech-backend
+./mvnw spring-boot:run    # → http://localhost:8080
+```

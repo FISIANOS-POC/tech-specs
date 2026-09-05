@@ -1,0 +1,4 @@
+# Sibling repositories (cloned inside tech-specs for local development)
+# Each has its own .git — they are independent repos, NOT part of tech-specs.
+tech-frontend/
+tech-backend/
